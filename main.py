@@ -8,8 +8,7 @@ os.environ['PYSPARK_DRIVER_PYTHON'] = sys.executable
 
 
 def get_distinct_count(local_df):
-    dist_count = local_df.agg(f.countDistinct('*')).collect()[0][0]
-    return dist_count
+    return local_df.distinct().count()
 
 
 def sum_of_column(local_df, col_name):
