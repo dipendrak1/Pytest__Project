@@ -26,3 +26,10 @@ def add_new_row_to_df(local_spark, local_df, rows_to_append):
     """rows_to_append example format = [(1, 2, 3, 'a'), (4, 5, 6, 'b')]"""
     new_row = local_spark.createDataFrame(rows_to_append, local_df.columns)
     return local_df.union(new_row)
+
+
+def drop_duplicates_and_left_join(left_df, right_df, col_name):
+    left_df = left_df.dropDuplicates(subset=col_name)
+    right_df = right_df.dropDuplicates(subset=col_name)
+    joined_df = left_df.join(right_df, on=col_name, how='left')
+    return joined_df
